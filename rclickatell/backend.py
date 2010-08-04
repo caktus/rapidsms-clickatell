@@ -25,7 +25,10 @@ class ClickatellBackend(BackendBase):
         self.user = user
         self.password = password
         self.api_id = api_id
-        self.debug('configured (%s/%s)' % (self.user, self.api_id))
+
+    def run(self):    
+        self.info('Clickatell configured (%s/%s)' % (self.user, self.api_id))
+        super(ClickatellBackend, self).run()
 
     def _prepare_message(self, message):
         return {
