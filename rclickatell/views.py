@@ -1,4 +1,5 @@
 import logging
+import pprint
 
 from django.http import HttpResponse
 from django.conf import settings
@@ -39,10 +40,11 @@ def test(request):
 
 
 def status_callback(request):
-    form = StatusCallbackForm(request.GET or None)
+    form = StatusCallbackForm(request.POST or None)
     if form.is_valid():
         form.save(ip_address=request.get_host())
     else:
+        post = pprint.pformat(request.POST)
         errors = [(k, unicode(v[0])) for k, v in form.errors.items()]
-        logging.error('Callback error: %s' % errors)
+        logging.error('Callback error: %s, %s' % (errors, post))
     return HttpResponse('OK')
