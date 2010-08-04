@@ -10,7 +10,8 @@ from rapidsms.messages.outgoing import OutgoingMessage
 from rapidsms.router import router
 from rapidsms.contrib.ajax.utils import request as ajax_request
 
-from rclickatell.forms import MessageForm
+from rclickatell.forms import MessageForm, StatusCallbackForm
+from rclickatell.models import MessageStatus, Message
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -35,3 +36,13 @@ def test(request):
     context = {'form': form}
     return render_to_response('rclickatell/message.html', context,
                               context_instance=RequestContext(request))
+
+
+def status_callback(request):
+    form = StatusCallbackForm(request.GET or None)
+    if form.is_valid():
+        form.save(ip_address=request.get_host())
+    else:
+        errors = [(k, unicode(v[0])) for k, v in form.errors.items()]
+        logging.error('Callback error: %s' % errors)
+    return HttpResponse('OK')

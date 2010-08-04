@@ -12,6 +12,8 @@ from django.db import DatabaseError
 from rapidsms.log.mixin import LoggerMixin
 from rapidsms.backends.base import BackendBase
 
+from rclickatell.models import Message
+
 
 ERROR_SYNTAX = re.compile(r'ERR: (\d+), ([\w\s]+)')
 
@@ -21,23 +23,31 @@ class ClickatellBackend(BackendBase):
 
     url = 'https://api.clickatell.com/http/sendmsg'
 
-    def configure(self, user, password, api_id):
+    def configure(self, user, password, api_id, callback=0):
         self.user = user
         self.password = password
         self.api_id = api_id
+        self.callback = callback
 
     def run(self):    
         self.info('Clickatell configured (%s/%s)' % (self.user, self.api_id))
         super(ClickatellBackend, self).run()
 
     def _prepare_message(self, message):
-        return {
+        msg = Message.objects.create(body=message.text,
+                                     connection=message.connection)
+        data = {
             'user': self.user,
             'password': self.password,
             'api_id': self.api_id,
             'to': message.connection.identity,
             'text': message.text,
+            'climsgid': msg.pk,
         }
+        if self.callback > 0:
+            data['deliv_ack'] = 1
+            data['callback'] = self.callback
+        return data
 
     def error_check(self, message):    
         matches = ERROR_SYNTAX.match(message)

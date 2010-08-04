@@ -9,7 +9,11 @@ from rapidsms.models import Connection, Contact, Backend
 from rapidsms.messages.outgoing import OutgoingMessage
 
 from rclickatell.backend import ClickatellBackend
+from rclickatell.models import Message, MessageStatus
+from rclickatell.forms import StatusCallbackForm
 
+from django.test import Client
+from django.core.urlresolvers import reverse
 
 logging.basicConfig(level=logging.DEBUG)
 router = MockRouter()
@@ -44,3 +48,23 @@ def test_bad_error_match():
     clickatell = ClickatellBackend(name="clickatell", router=router, **conf)
     error = clickatell.error_check('dfshkjadfshjlkadsfhlksadfhkj')
     assert_equals(error, None)
+
+
+def test_status():
+    client = Client()
+    message = Message.objects.create(body='foo', connection=connection)
+
+    data = {
+        'api_id': 12345,
+        'apiMsgId': '996f364775e24b8432f45d77da8eca47',
+        'cliMsgId': message.id,
+        'timestamp': 1218007814,
+        'to': 279995631564,
+        'from': 27833001171,
+        'status': '003',
+        'charge': '0.300000',
+    }
+    form = StatusCallbackForm(data)
+    assert_true(form.is_valid(), [(k, unicode(v[0])) for k, v in form.errors.items()])
+    status = form.save(ip_address='127.0.0.1')
+    assert_true(status.message_id, message.id)
