@@ -6,7 +6,8 @@ from rapidsms.models import Connection
 
 
 class Message(models.Model):
-    connection = models.ForeignKey(Connection)
+    connection = models.ForeignKey(Connection,
+                                   related_name='clickatel_messages')
     date = models.DateTimeField()
     body = models.CharField(max_length=512)
     api_message_id = models.CharField('API Message ID', max_length=64,
