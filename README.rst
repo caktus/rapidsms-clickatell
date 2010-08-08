@@ -44,9 +44,9 @@ Once rclickatell is installed, add it to ``INSTALLED_APPS`` and ``INSTALLED_BACK
     INSTALLED_BACKENDS = {
         "clickatell": {
             "ENGINE": "rclickatell.backend"
-            'user': 'caktus',
-            'password': 'EMQUert1',
-            'api_id': '3249581',
+            'user': '',
+            'password': '',
+            'api_id': '',
             'callback' 3, # enable (levels 1-3) to enable Clickatell status notifications
         },
     }
