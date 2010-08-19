@@ -68,3 +68,18 @@ def test_status():
     assert_true(form.is_valid(), [(k, unicode(v[0])) for k, v in form.errors.items()])
     status = form.save(ip_address='127.0.0.1')
     assert_true(status.message_id, message.id)
+
+
+def test_missing_from():
+    message = Message.objects.create(body='foo', connection=connection)
+    data = {
+        'api_id': 12345,
+        'apiMsgId': '996f364775e24b8432f45d77da8eca47',
+        'cliMsgId': message.id,
+        'timestamp': 1218007814,
+        'to': 279995631564,
+        'status': '003',
+        'charge': '0.300000',
+    }
+    form = StatusCallbackForm(data)
+    assert_true(form.is_valid(), [(k, unicode(v[0])) for k, v in form.errors.items()])
