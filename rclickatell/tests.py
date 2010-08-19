@@ -78,8 +78,11 @@ def test_missing_from():
         'cliMsgId': message.id,
         'timestamp': 1218007814,
         'to': 279995631564,
+        'from': '',
         'status': '003',
         'charge': '0.300000',
     }
     form = StatusCallbackForm(data)
     assert_true(form.is_valid(), [(k, unicode(v[0])) for k, v in form.errors.items()])
+    status = form.save(ip_address='127.0.0.1')
+    assert_equals(status.sender, '')
