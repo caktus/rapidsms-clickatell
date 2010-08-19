@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_exempt
 
 from rapidsms.models import Contact, Connection
 from rapidsms.messages.outgoing import OutgoingMessage
@@ -39,6 +40,7 @@ def test(request):
                               context_instance=RequestContext(request))
 
 
+@csrf_exempt
 def status_callback(request):
     form = StatusCallbackForm(request.POST or None)
     if form.is_valid():
