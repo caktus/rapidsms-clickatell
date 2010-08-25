@@ -26,7 +26,7 @@ def test_outgoing_message():
     conf = {'user': 'test', 'password': 'abc', 'api_id': '1234'}
     clickatell = ClickatellBackend(name="clickatell", router=router, **conf)
     message = OutgoingMessage(connection, 'abc')
-    data = clickatell._prepare_message(message)
+    msg, data = clickatell._prepare_message(message)
     keys = ('user', 'password', 'api_id', 'to', 'text')
     for key in keys:
         assert_true(key in data)
@@ -48,6 +48,21 @@ def test_bad_error_match():
     clickatell = ClickatellBackend(name="clickatell", router=router, **conf)
     error = clickatell.error_check('dfshkjadfshjlkadsfhlksadfhkj')
     assert_equals(error, None)
+
+
+def test_good_id_match():
+    conf = {'user': 'test', 'password': 'abc', 'api_id': '1234'}
+    clickatell = ClickatellBackend(name="clickatell", router=router, **conf)
+    api_id = clickatell.id_check('ID: d9bb8bebc6258fe47a76988f81a96634')
+    assert_not_equals(api_id, None)
+    assert_equals(api_id, 'd9bb8bebc6258fe47a76988f81a96634')
+
+
+def test_bad_id_match():
+    conf = {'user': 'test', 'password': 'abc', 'api_id': '1234'}
+    clickatell = ClickatellBackend(name="clickatell", router=router, **conf)
+    api_id = clickatell.id_check('dfshkjadfshjlkadsfhlksadfhkj')
+    assert_equals(api_id, None)
 
 
 def test_status():
