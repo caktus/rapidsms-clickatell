@@ -12,8 +12,8 @@ admin.site.register(Message, MessageAdmin)
 
 
 class MessageStatusAdmin(admin.ModelAdmin):
-    list_display = ('message', 'date', 'ip_address', 'sender', 'recipient',
-                    'status')
+    list_display = ('id', 'date', 'recipient', 'ip_address', 'sender',
+                    'message', 'status')
     ordering = ('-date',)
     list_filter = ('date', 'ip_address', 'status')
     raw_id_fields = ('message',)
