@@ -77,7 +77,7 @@ class ClickatellBackend(BackendBase):
             error_code, error_message = error
             self.error('Clicktell error %d: %s' % (error_code, error_message))
             error = self.error_check(body)
-        api_id = id_check(body)
+        api_id = self.id_check(body)
         if api_id:
             msg.api_message_id = api_id
             msg.save()
