@@ -19,7 +19,7 @@ class Message(models.Model):
         return super(Message, self).save(**kwargs)
     
     def __unicode__(self):
-        return "%s..." % self.body[:16]
+        return "%d: %s..." % (self.pk, self.body[:25])
 
 
 class MessageStatus(models.Model):
