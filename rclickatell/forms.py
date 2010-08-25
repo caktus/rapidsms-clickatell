@@ -20,7 +20,7 @@ class StatusCallbackForm(forms.Form):
     apiMsgId = forms.CharField()
     timestamp = forms.IntegerField(min_value=0)
     to = forms.IntegerField(min_value=0)
-    from_ = forms.IntegerField(min_value=0)
+    from_ = forms.CharField(required=False)
     charge = forms.CharField()
     status = forms.CharField()
 

@@ -56,7 +56,7 @@ class MessageStatus(models.Model):
     message = models.ForeignKey(Message, related_name='statuses')
     ip_address = models.IPAddressField('IP Address')
     date = models.DateTimeField()
-    sender = models.CharField(max_length=16)
+    sender = models.CharField(max_length=16, blank=True)
     recipient = models.CharField(max_length=16)
     status = models.CharField(max_length=16)
     api_id = models.CharField('API ID', max_length=64)
