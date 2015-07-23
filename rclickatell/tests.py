@@ -1,5 +1,3 @@
-import unittest
-import urllib
 import logging
 
 from rapidsms.tests.harness import MockRouter
@@ -7,11 +5,10 @@ from rapidsms.models import Connection, Contact, Backend
 from rapidsms.messages.outgoing import OutgoingMessage
 
 from rclickatell.backend import ClickatellBackend
-from rclickatell.models import Message, MessageStatus
+from rclickatell.models import Message
 from rclickatell.forms import StatusCallbackForm
 
-from django.test import Client, TestCase
-from django.core.urlresolvers import reverse
+from django.test import TestCase
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -63,7 +60,6 @@ class ClickatellTest(TestCase):
         self.assertEqual(api_id, None)
 
     def test_status(self):
-        client = Client()
         message = Message.objects.create(body='foo', connection=self.connection)
 
         data = {

@@ -19,7 +19,7 @@ class MessageStatusAdmin(admin.ModelAdmin):
     raw_id_fields = ('message',)
     search_fields = ('message__body', 'recipient', 'sender', 'message__pk',
                      'message__api_message_id')
-    
+
     def description(self, obj):
         return MessageStatus.STATUS_DESC.get(obj.status, '')
 

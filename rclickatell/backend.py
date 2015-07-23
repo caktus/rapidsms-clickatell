@@ -1,15 +1,7 @@
 import urllib
 import urllib2
-import urlparse
-import pprint
-import datetime
-import time
 import re
 
-from django.http import QueryDict
-from django.db import DatabaseError
-
-from rapidsms.log.mixin import LoggerMixin
 from rapidsms.backends.base import BackendBase
 
 from rclickatell.models import Message
@@ -30,7 +22,7 @@ class ClickatellBackend(BackendBase):
         self.api_id = api_id
         self.callback = callback
 
-    def run(self):    
+    def run(self):
         self.info('Clickatell configured (%s/%s)' % (self.user, self.api_id))
         super(ClickatellBackend, self).run()
 
