@@ -14,7 +14,7 @@ class MessageForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea)
 
 
-class StatusCallbackForm(forms.Form):    
+class StatusCallbackForm(forms.Form):
     cliMsgId = forms.ModelChoiceField(queryset=Message.objects.all())
     api_id = forms.IntegerField(min_value=0)
     apiMsgId = forms.CharField()
