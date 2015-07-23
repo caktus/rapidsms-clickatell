@@ -42,6 +42,6 @@ def status_callback(request):
         form.save(ip_address=request.get_host())
     else:
         post = pprint.pformat(request.POST)
-        errors = [(k, unicode(v[0])) for k, v in form.errors.items()]
+        errors = [(k, str(v[0])) for k, v in form.errors.items()]
         logging.error('Callback error: %s, %s' % (errors, post))
     return HttpResponse('OK')

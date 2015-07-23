@@ -73,7 +73,7 @@ class ClickatellTest(TestCase):
             'charge': '0.300000',
         }
         form = StatusCallbackForm(data)
-        self.assertTrue(form.is_valid(), [(k, unicode(v[0])) for k, v in form.errors.items()])
+        self.assertTrue(form.is_valid(), [(k, str(v[0])) for k, v in form.errors.items()])
         status = form.save(ip_address='127.0.0.1')
         self.assertTrue(status.message_id, message.id)
 
@@ -90,6 +90,6 @@ class ClickatellTest(TestCase):
             'charge': '0.300000',
         }
         form = StatusCallbackForm(data)
-        self.assertTrue(form.is_valid(), [(k, unicode(v[0])) for k, v in form.errors.items()])
+        self.assertTrue(form.is_valid(), [(k, str(v[0])) for k, v in form.errors.items()])
         status = form.save(ip_address='127.0.0.1')
         self.assertEqual(status.sender, '')
