@@ -48,3 +48,12 @@ Once ``rclickatell`` is installed, add it to ``INSTALLED_APPS`` and ``INSTALLED_
             'callback' 3, # enable (levels 1-3) to enable Clickatell status notifications
         },
     }
+
+
+Testing
+-------
+
+Install ``tox`` and then run it::
+
+  $ pip install tox
+  $ tox
