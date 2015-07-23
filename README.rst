@@ -15,6 +15,7 @@ Mobile Originated (MO) messages.
 Requirements
 ------------
 
+* Python 2.7 or Python 3.3+
 * `Django <http://www.djangoproject.com/>`_ >= 1.7
 * `RapidSMS <http://www.rapidsms.org/>`_ >= 0.18.0
 
