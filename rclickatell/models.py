@@ -17,7 +17,7 @@ class Message(models.Model):
         if not self.date:
             self.date = datetime.datetime.now()
         return super(Message, self).save(**kwargs)
-    
+
     def __unicode__(self):
         return "%d: %s..." % (self.pk, self.body[:25])
 
@@ -43,14 +43,19 @@ class MessageStatus(models.Model):
         '002': 'The message could not be delivered and has been queued for attempted redelivery.',
         '003': 'Delivered to the upstream gateway or network (delivered to the recipient).',
         '004': 'Confirmation of receipt on the handset of the recipient.',
-        '005': 'There was an error with the message, probably caused by the content of the message itself.',
-        '006': 'The message was terminated by a user (stop delivery message command) or by our staff.',
+        '005': 'There was an error with the message, probably caused by the content of the ' +
+               'message itself.',
+        '006': 'The message was terminated by a user (stop delivery message command) or by ' +
+               'our staff.',
         '007': 'An error occurred delivering the message to the handset.',
         '008': 'Message received by gateway.',
         '009': 'The routing gateway or network has had an error routing the message.',
-        '010': 'Message has expired before we were able to deliver it to the upstream gateway. No charge applies.',
-        '011': 'Message has been queued at the gateway for delivery at a later time (delayed delivery).',
-        '012': 'The message cannot be delivered due to a lack of funds in your account. Please re-purchase credits.',
+        '010': 'Message has expired before we were able to deliver it to the upstream gateway. ' +
+               'No charge applies.',
+        '011': 'Message has been queued at the gateway for delivery at a later time (delayed ' +
+               'delivery).',
+        '012': 'The message cannot be delivered due to a lack of funds in your account. Please ' +
+               're-purchase credits.',
     }
 
     message = models.ForeignKey(Message, related_name='statuses')

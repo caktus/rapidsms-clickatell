@@ -1,19 +1,13 @@
-import urllib
-import urllib2
-import urlparse
-import pprint
-import datetime
-import time
+import logging
 import re
 
-from django.http import QueryDict
-from django.db import DatabaseError
-
-from rapidsms.log.mixin import LoggerMixin
 from rapidsms.backends.base import BackendBase
+import requests
 
 from rclickatell.models import Message
 
+
+logger = logging.getLogger(__name__)
 
 ERROR_SYNTAX = re.compile(r'ERR: (\d+), ([\w\s]+)')
 ID_SYNTAX = re.compile(r'ID: ([\w\s]+)')
@@ -30,7 +24,7 @@ class ClickatellBackend(BackendBase):
         self.api_id = api_id
         self.callback = callback
 
-    def run(self):    
+    def run(self):
         self.info('Clickatell configured (%s/%s)' % (self.user, self.api_id))
         super(ClickatellBackend, self).run()
 
@@ -68,14 +62,14 @@ class ClickatellBackend(BackendBase):
 
     def send(self, message):
         msg, data = self._prepare_message(message)
-        self.debug('send: %s %s' % (message, data))
-        response = urllib2.urlopen(self.url, urllib.urlencode(data))
+        logger.debug('send: %s %s' % (message, data))
+        response = requests.post(self.url, data=data)
         body = response.read()
-        self.debug('Clicktell response: %s' % body)
+        logger.debug('Clicktell response: %s' % body)
         error = self.error_check(body)
         if error:
             error_code, error_message = error
-            self.error('Clicktell error %d: %s' % (error_code, error_message))
+            logger.error('Clicktell error %d: %s' % (error_code, error_message))
             error = self.error_check(body)
         api_id = self.id_check(body)
         if api_id:
