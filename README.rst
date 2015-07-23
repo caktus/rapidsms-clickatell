@@ -1,10 +1,8 @@
--*- restructuredtext -*-
-
 rapidsms-clickatell
 ===================
 
-rclickatell is a basic `Clickatell <http://www.twilio.com>`_ backend for the
-`RapidSMS <http://www.rapidsms.org/>`_ project. Currently, rclickatell only
+rclickatell is a basic `Clickatell <https://www.clickatell.com/>`_ backend for the
+`RapidSMS <https://www.rapidsms.org/>`_ project. Currently, rclickatell only
 supports Mobile Terminated (MT) SMS communication (sending outgoing messages
 using the Clickatell API), but could be extended in the future to support
 Mobile Originated (MO) messages.
@@ -12,16 +10,15 @@ Mobile Originated (MO) messages.
 Requirements
 ------------
 
-* `Django <http://www.djangoproject.com/>`_ >= 1.2
-* `RapidSMS <http://www.rapidsms.org/>`_ >= 0.9.3a
+* `Django <http://www.djangoproject.com/>`_ >= 1.7
+* `RapidSMS <http://www.rapidsms.org/>`_ >= 0.18.0
 
 Installation
 ------------
 
-You can install rclickatell in a few ways:
+ * Install via pip::
 
- * Download rclickatell and run: ``python setup.py install``
- * Or, using pip: ``pip install -e git+http://github.com/caktus/rapidsms-clickatell.git#egg=rclickatell``
+     pip install rclickatell
 
 Features and Settings
 ---------------------
@@ -34,7 +31,7 @@ Features and Settings
 Usage
 -----
 
-Once rclickatell is installed, add it to ``INSTALLED_APPS`` and ``INSTALLED_BACKENDS`` in settings.py::
+Once ``rclickatell`` is installed, add it to ``INSTALLED_APPS`` and ``INSTALLED_BACKENDS`` in settings.py::
 
     INSTALLED_APPS (
         ...
