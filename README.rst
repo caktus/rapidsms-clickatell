@@ -1,6 +1,11 @@
 rapidsms-clickatell
 ===================
 
+.. image:: https://travis-ci.org/caktus/rapidsms-clickatell.svg?branch=develop
+           :alt: Build Status
+           :target: https://travis-ci.org/caktus/rapidsms-clickatell
+
+
 rclickatell is a basic `Clickatell <https://www.clickatell.com/>`_ backend for the
 `RapidSMS <https://www.rapidsms.org/>`_ project. Currently, rclickatell only
 supports Mobile Terminated (MT) SMS communication (sending outgoing messages
